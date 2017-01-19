@@ -1,12 +1,8 @@
-import java.io.File;
 import java.util.*;
 
-/**
- * Created by ihb on 01.12.16.
- */
 
 class Multiplication {
-    private int THREAD_COUNT = 2;
+    private int THREAD_COUNT = 3;
 
     private double[][] A;
     private double[][] B;
@@ -20,7 +16,7 @@ class Multiplication {
     }
 
     public void start() {
-        int delta = (A.length%2==1)?A.length / THREAD_COUNT+1 : A.length / THREAD_COUNT;
+        int delta = A.length/THREAD_COUNT;
         double[][] Apart;
         List<Thread> threads = new ArrayList<>();
         int rawsCount;
@@ -28,7 +24,7 @@ class Multiplication {
         double[][] temp;
         for(int i=0; i<THREAD_COUNT; i++){
             countOfRunningThread++;
-            rawsCount = ((A.length%2==1)&&(i==THREAD_COUNT-1))?delta:delta-1;
+            rawsCount = (i==THREAD_COUNT-1?A.length-totalRawNum:delta);
             Apart=new double[rawsCount][A[0].length];
             for(int j=0;j<rawsCount;j++){
                 Apart[j]=A[totalRawNum++];
